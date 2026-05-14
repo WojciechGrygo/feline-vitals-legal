@@ -1,70 +1,162 @@
-# Privacy Policy 🛡️
+# Privacy Policy
 
-**Effective Date: February 15, 2026**  
+**App:** Feline CKD Care  
+**Effective Date: May 14, 2026**  
 **Version: 1.0.0**
 
 ---
 
-### 🟢 The "Privacy-First" Summary (TL;DR)
+### The Short Version (TL;DR)
 
-- **No Accounts:** You don’t need to sign up. We don’t know who you are.
-- **On-Device Storage:** Your financial data (subscriptions, prices, notes) never leaves your phone. It is stored in a private local database, not on our servers.
-- **Zero Tracking:** We don’t use trackers, we don’t show ads, and we don’t sell your data. We couldn't even if we wanted to—we don't have it.
+- **No Accounts Required.** You don't sign up. We don't know who you are.
+- **Your Cat's Health Data Stays on Your Device.** All logs — weight, fluids, medications, lab results, symptoms — are stored in a private local database. They never reach our servers.
+- **Analytics Are Opt-In.** Anonymous usage statistics (e.g. "weight was logged today") are only collected if you explicitly enable them in Settings. Disabled by default.
+- **We Don't Sell Data.** We have no business model based on your data. We make money through Pro subscriptions only.
 
 ---
 
-## 1. Our Privacy Philosophy
+## 1. Who We Are
 
-Lupi (the "App") was built on the principle of **Zero Knowledge**. We believe your financial life is your business. Our architecture ensures that your sensitive data remains under your physical control at all times.
+Feline CKD Care (the "App") is an independent mobile application for iOS and Android, built to help cat owners manage Chronic Kidney Disease (CKD). It is developed and maintained by:
+
+**Wojciech Grygo**  
+Email: **grygo.wojtek@gmail.com**
+
+---
 
 ## 2. Information We Handle
 
-### A. Data Stored Locally (By You)
+### A. Data Stored Locally on Your Device
 
-All records of your expenses, custom categories, and notes are saved directly to your device's internal storage using a secure SQLite database.
+All health records you enter are saved exclusively to your device's internal storage using a SQLite database. This includes:
 
-- **Access:** Only you can see this data.
-- **Backup:** Your data is included in your standard device backups (e.g., iCloud or Google Backup), managed by your OS.
+- Cat profiles (name, CKD stage, baseline weight)
+- Daily logs: weight, subcutaneous fluid sessions (volume, site), medication doses, appetite, energy levels
+- Litter box records and digestive symptoms
+- Lab results (creatinine, BUN, phosphorus, SDMA, and up to 13 parameters)
+- Feeding logs and food library
+- Reminders and vet notes
+- App settings (weight unit preference, analytics consent)
 
-### B. Technical Interactions (The Internet)
+**We cannot access any of this data.** It is never transmitted to our servers.
 
-To make the App useful, we perform specific, limited network requests. These requests do not contain your personal financial records:
+**Backup:** Your data is included in your device's standard system backup:
 
-- **Currency Conversion:** We fetch the latest rates from **Frankfurter API**.
-- **Brand Identity:** We fetch logos and brand colors from **Brandfetch API** based on the domains you search for.
-- **Notifications:** If enabled, we use **Expo/Apple/Google** system tokens to trigger local reminders.
+- **iOS:** Backed up to iCloud automatically (if iCloud Backup is enabled).
+- **Android:** Backed up to Google Drive automatically via Android Auto Backup.
 
-### C. [TODO] Future Premium Features
+You can verify backup status in your device's system settings (Profile → Data → tap to open settings).
 
-_Currently, the App is 100% free._ When we introduce Premium features, payment processing will be handled entirely by the **Apple App Store** or **Google Play Store**. We will never have access to your credit card or billing details.
+---
+
+### B. Anonymous Analytics (Opt-In Only)
+
+If you choose to enable analytics in **Settings → Analytics**, the App sends anonymous, aggregate usage events to **Firebase Analytics** (Google). This data helps us understand which features are used most, so we can prioritize improvements.
+
+**What we send (example events):**
+
+- `weight_recorded` — a weight entry was saved
+- `fluid_session_added` — a fluid session was logged
+- `dmb_calculator_used` — the DMB calculator was opened
+- `pdf_exported` — a PDF report was generated
+
+**What we never send:**
+
+- Actual values (weight numbers, fluid volumes, etc.)
+- Cat names, vet notes, medication names, or any free-text content
+- Lab result values
+- Device identifiers beyond what Firebase generates automatically
+
+Analytics collection is **disabled by default** in compliance with GDPR. You can change this at any time under **Settings → Analytics**.
+
+---
+
+### C. Crash Reporting
+
+The App uses **Firebase Crashlytics** to automatically collect crash reports when the App unexpectedly closes. This helps us fix bugs faster.
+
+Crash reports may include:
+
+- The type of error and stack trace (technical code location)
+- Device model and OS version
+- App version
+
+Crash reports do **not** include your cat's health data, vet notes, or any personal information you have entered.
+
+---
+
+### D. Subscription & Payments (Pro Features)
+
+If you purchase the Pro subscription, the transaction is processed entirely by the **Apple App Store** or **Google Play Store**. We use **RevenueCat** to verify subscription status.
+
+- We **never** see or store your payment card details.
+- RevenueCat receives a pseudonymous subscriber ID and your subscription tier. It does not receive your health records.
+- RevenueCat Privacy Policy: [https://www.revenuecat.com/privacy](https://www.revenuecat.com/privacy)
+
+---
+
+### E. Notifications
+
+If you set up reminders (e.g., "Give fluids at 18:00"), the App uses **Expo / Apple Push Notification Service / Firebase Cloud Messaging** solely to deliver those local reminders to your device. No notification data is logged on our servers.
+
+---
 
 ## 3. Trusted Partners
 
-We only connect to services that are essential for the App’s functionality.
+| Service                           | Purpose                                              | Privacy Policy                                           |
+| :-------------------------------- | :--------------------------------------------------- | :------------------------------------------------------- |
+| **Firebase Analytics** (Google)   | Anonymous feature usage statistics — **opt-in only** | [Google Privacy](https://policies.google.com/privacy)    |
+| **Firebase Crashlytics** (Google) | Automatic crash reports for bug fixing               | [Google Privacy](https://policies.google.com/privacy)    |
+| **RevenueCat**                    | Subscription status verification                     | [RevenueCat Privacy](https://www.revenuecat.com/privacy) |
+| **Apple App Store**               | App distribution, payment processing (iOS)           | [Apple Privacy](https://www.apple.com/legal/privacy/)    |
+| **Google Play Store**             | App distribution, payment processing (Android)       | [Google Privacy](https://policies.google.com/privacy)    |
 
-| Service             | Why we use it                    | Privacy Info                                          |
-| :------------------ | :------------------------------- | :---------------------------------------------------- |
-| **Frankfurter API** | Real-time currency exchange      | [Public Domain / Open Source]                         |
-| **Brandfetch API**  | Visualizing your subscriptions   | [Privacy Policy](https://brandfetch.com/privacy)      |
-| **Apple / Google**  | App distribution & Notifications | [Apple Privacy](https://www.apple.com/legal/privacy/) |
+---
 
-## 4. Total Control: Data Deletion
+## 4. Data Deletion
 
-You are the owner of your data.
+You are in full control of your data.
 
-1.  **Manual Reset:** You can wipe all data instantly using the **"Reset App"** feature in Settings.
-2.  **App Uninstallation:** Deleting the App from your device automatically destroys the local database.
+1. **Delete a cat profile:** Profile → Edit → Delete Profile. This removes all records associated with that cat.
+2. **Uninstall the App:** Deleting the App from your device removes the local SQLite database. Note: data already backed up to iCloud or Google Drive may persist in those system backups according to their own retention policies.
+3. **Disable Analytics:** Settings → Analytics → toggle off. Firebase will stop receiving new events immediately.
+4. **Request deletion of analytics data:** Email us at **grygo.wojtek@gmail.com** and we will request deletion of any associated Firebase data under your device's pseudonymous ID.
 
-## 5. Global Compliance (GDPR & CCPA)
+---
 
-Although we do not "collect" data in the traditional sense, we comply with global standards:
+## 5. Children's Privacy
 
-- **GDPR (Europe):** The legal basis for processing is the performance of the contract (providing the app's features).
-- **CCPA (California):** We do not "sell" or "share" your personal information.
+Feline CKD Care is not directed at children under 13 (or under 16 in the European Economic Area). We do not knowingly collect personal information from children. If you believe a child has provided information, please contact us and we will remove it.
 
-## 6. Contact & Support
+---
 
-If you have questions about our "Local-First" approach, please reach out to the developer:
+## 6. Global Compliance
+
+### GDPR (European Union / EEA)
+
+As a user from the EU/EEA, you have the following rights regarding any data Firebase may associate with your device:
+
+- **Right to access** — request what data Firebase holds linked to your pseudonymous device ID.
+- **Right to erasure** — request deletion of that data by emailing us.
+- **Right to object** — disable analytics at any time in Settings.
+
+The legal basis for analytics processing (when you opt in) is **explicit consent** (Art. 6(1)(a) GDPR). Crash reporting is processed under **legitimate interest** (App stability and bug fixing).
+
+### CCPA (California)
+
+We do not sell or share personal information with third parties for their own advertising or marketing purposes.
+
+---
+
+## 7. Changes to This Policy
+
+If we materially change this Privacy Policy, we will update the Effective Date at the top and notify you via an in-app notice on the next launch. Continued use of the App after the notice constitutes acceptance.
+
+---
+
+## 8. Contact
+
+Questions, requests, or concerns about privacy:
 
 **Wojciech Grygo**  
 Email: **grygo.wojtek@gmail.com**
