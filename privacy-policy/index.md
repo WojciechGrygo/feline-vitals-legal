@@ -3,6 +3,7 @@
 **App:** FelineVitals
 
 **Effective Date: June 18, 2026**
+
 **Version: 2.0.0**
 
 ---
