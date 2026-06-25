@@ -1,10 +1,10 @@
 # Privacy Policy
 
-**App:** FelineVitals
+**App:** FeliVitals
 
-**Effective Date: June 18, 2026**
+**Effective Date: June 25, 2026**
 
-**Version: 2.0.0**
+**Version: 2.1.0**
 
 ---
 
@@ -20,7 +20,7 @@
 
 ## 1. Who We Are
 
-Feline Vitals (the "App") is an independent mobile application for iOS and Android, built to help cat owners manage Chronic Kidney Disease (CKD). It is developed and maintained by:
+FeliVitals (the "App") is an independent mobile application for iOS and Android, built to help cat owners manage Chronic Kidney Disease (CKD). It is developed and maintained by:
 
 **Wojciech Grygo**  
 Email: **grygo.wojtek@gmail.com**
@@ -155,7 +155,7 @@ You are in full control of your data.
 
 ## 5. Children's Privacy
 
-FelineVitals is not directed at children under 13 (or under 16 in the European Economic Area). We do not knowingly collect personal information from children. If you believe a child has provided information, please contact us, and we will remove it.
+FeliVitals is not directed at children under 13 (or under 16 in the European Economic Area). We do not knowingly collect personal information from children. If you believe a child has provided information, please contact us, and we will remove it.
 
 ---
 
