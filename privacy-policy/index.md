@@ -2,9 +2,9 @@
 
 **App:** FeliVitals
 
-**Effective Date: June 25, 2026**
+**Effective Date: September 16, 2026**
 
-**Version: 2.1.0**
+**Version: 3.0.0**
 
 ---
 
@@ -114,7 +114,8 @@ Crash reports do **not** include your cat's health data, vet notes, or any perso
 If you purchase the Pro subscription, the transaction is processed entirely by the **Apple App Store** or **Google Play Store**. We use **RevenueCat** to verify subscription status.
 
 - We **never** see or store your payment card details.
-- RevenueCat receives a pseudonymous subscriber ID and your subscription tier. It does not receive your health records.
+- RevenueCat receives a pseudonymous subscriber ID, purchase history, and subscription status. For signed-in users, this data may be linked to their account. RevenueCat does not receive your health records.
+- On iOS, RevenueCat also receives Apple Ads attribution data, such as campaign, ad group, and keyword identifiers, to measure the effectiveness of our App Store advertising. RevenueCat may associate this data with the subscriber profile and purchase history. We do not use this data to track you across apps or websites.
 - RevenueCat Privacy Policy: [https://www.revenuecat.com/privacy](https://www.revenuecat.com/privacy)
 
 ---
@@ -133,7 +134,7 @@ If you set up reminders (e.g., "Give fluids at 18:00"), the App uses **Expo / Ap
 | **Firebase Authentication** (Google) | Account identity (Apple / Google sign-in) | [Google Privacy](https://policies.google.com/privacy) |
 | **Firebase Analytics** (Google) | Anonymous feature usage statistics — **opt-in only** | [Google Privacy](https://policies.google.com/privacy) |
 | **Firebase Crashlytics** (Google) | Automatic crash reports for bug fixing | [Google Privacy](https://policies.google.com/privacy) |
-| **RevenueCat** | Subscription status verification | [RevenueCat Privacy](https://www.revenuecat.com/privacy) |
+| **RevenueCat** | Subscription status verification and Apple Ads campaign measurement on iOS | [RevenueCat Privacy](https://www.revenuecat.com/privacy) |
 | **Apple Sign In** | Authentication for iOS users | [Apple Privacy](https://www.apple.com/legal/privacy/) |
 | **Google Sign In** | Authentication for Android users | [Google Privacy](https://policies.google.com/privacy) |
 | **Apple App Store** | App distribution, payment processing (iOS) | [Apple Privacy](https://www.apple.com/legal/privacy/) |
