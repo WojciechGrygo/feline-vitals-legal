@@ -1,26 +1,25 @@
 # Privacy Policy
 
-**App:** FeliVitals
-
-**Effective Date: September 16, 2026**
-
-**Version: 3.0.0**
+**App:** FeliVitals  
+**Effective Date:** September 17, 2026  
+**Version:** 3.1.0
 
 ---
 
-### The Short Version (TL;DR)
+## The Short Version (TL;DR)
 
-- **Accounts Are Optional.** You can use the App without creating an account. Signing in (Apple or Google) is required only if you want to back up your data to the cloud or share care with another person.
-- **Without an Account — Data Stays on Your Device.** If you never sign in, all health records remain exclusively in a local database on your phone. They never leave your device.
-- **With an Account — Data Syncs to the Cloud.** When you sign in, your cat's health records are encrypted in transit and stored in Firebase Firestore (Google) so they can be restored on a new device or shared with a household member.
-- **Analytics Are Opt-In.** Anonymous usage statistics are only collected if you explicitly enable them in Settings. Disabled by default.
-- **We Don't Sell Data.** We have no business model based on your data. We make money through Pro subscriptions only.
+- **Accounts are optional.** You can use the App without creating an Apple or Google account. Signing in is required only for cloud backup, restore, and household sharing.
+- **Most data stays on your device without an account.** Health records remain in the local database unless you choose to use the optional lab-report scanner. The selected report is then sent to Google Cloud for AI-assisted extraction.
+- **AI scanning is optional.** FeliVitals does not permanently store the source photo or PDF. Extracted values are shown for your review and are saved only when you choose to save them.
+- **Signed-in data syncs to the cloud.** When you sign in, your health records are stored in Firebase Firestore so they can be restored or shared.
+- **Analytics and crash reporting are opt-in.** They are disabled until you enable them in Settings.
+- **We do not sell your data.** FeliVitals is funded through Pro subscriptions, not the sale of personal information.
 
 ---
 
 ## 1. Who We Are
 
-FeliVitals (the "App") is an independent mobile application for iOS and Android, built to help cat owners manage Chronic Kidney Disease (CKD). It is developed and maintained by:
+FeliVitals (the "App") is an independent mobile application for iOS and Android, built to help cat owners manage chronic health conditions, including Chronic Kidney Disease (CKD). It is developed and maintained by:
 
 **Wojciech Grygo**  
 Email: **grygo.wojtek@gmail.com**
@@ -29,169 +28,196 @@ Email: **grygo.wojtek@gmail.com**
 
 ## 2. Information We Handle
 
-### A. Data Stored Locally on Your Device (All Users)
+### A. Data Stored Locally on Your Device
 
-All health records you enter are saved to your device's internal storage using a SQLite database. This includes:
+Health records you enter are saved to your device's internal storage using a SQLite database. This includes:
 
-- Cat profiles (name, CKD stage, baseline weight)
-- Daily logs: weight, subcutaneous fluid sessions (volume, site), medication doses, appetite, energy levels
+- Cat profiles, such as name, CKD stage, and baseline weight
+- Daily logs, including weight, fluids, medications, appetite, and energy
 - Litter box records and digestive symptoms
-- Lab results (creatinine, BUN, phosphorus, SDMA, and up to 17 parameters)
-- Feeding logs and food library
-- Reminders and vet notes
-- App settings (weight unit preference, analytics consent)
+- Lab results and supported laboratory parameters
+- Feeding logs and food-library data
+- Reminders and veterinary notes
+- App settings, including unit preferences and privacy choices
 
-**If you never sign in**, this data never leaves your device and we cannot access it.
+If you do not sign in, these records are not synced to FeliVitals cloud storage. The optional lab-report scanner described in Section 2B is the exception: only a report you deliberately select for scanning is sent for processing.
 
-**Backup (without account):** Your data is included in your device's standard system backup:
+Your local data may also be included in your device's system backup:
 
-- **iOS:** Backed up to iCloud automatically (if iCloud Backup is enabled).
-- **Android:** Backed up to Google Drive automatically via Android Auto Backup.
+- **iOS:** iCloud Backup, if enabled on your device
+- **Android:** Android backup, if enabled on your device
 
----
+These backups are controlled by Apple or Google and are subject to their policies.
 
-### B. Cloud Account Data (Signed-In Users Only)
+### B. Optional AI Lab-Report Scanning
 
-When you sign in with Apple or Google, the App creates an account and syncs your health records to **Firebase Firestore** (Google). This enables cloud backup, device restore, and household sharing.
+When you select **Scan photo or PDF**, the App sends the selected veterinary laboratory report through an encrypted connection to a protected Firebase Cloud Function and then to **Google Cloud Vertex AI**. This can happen whether or not you have signed in with Apple or Google.
 
-**What is stored in Firebase Firestore:**
+The scan is used only to extract supported laboratory fields into a structured draft. It does not provide a diagnosis, treatment recommendation, or medical advice.
 
-- Your Firebase user ID (UID) — a pseudonymous identifier generated by Firebase
-- Email address and display name (received from Apple or Google at sign-in)
-- Household membership (who is the owner, who are members)
-- All health records listed in Section 2A above — synced and stored in Google's infrastructure
+The report may contain information visible in the document, including:
 
-**What is stored in Firebase Authentication:**
+- Laboratory values, units, reference ranges, and report date
+- Cat, owner, clinic, veterinarian, or patient identifiers printed on the report
+- Other text or images included in the selected file
 
-- Your sign-in provider (Apple or Google)
-- Email address (used to identify your account)
-- A refresh token (used to revoke access when your account is deleted, as required by Apple)
+**How FeliVitals handles the report:**
 
-**Household sharing:** If you join a shared household with another person (e.g., a family member or pet sitter), they can view and add records for cats in that household. You control who is in your household and can remove members at any time.
+- Source photos and PDFs are processed in memory and are not saved by FeliVitals to Firebase Firestore or Cloud Storage.
+- Report contents, extracted values, prompts, and model responses are not written to Analytics, Crashlytics, or application logs.
+- Extracted values are returned to your device for review.
+- Extracted values become part of your health records only after you choose to save the form. If you are signed in, those saved values are then included in cloud sync as described in Section 2C.
 
-**Data location:** Firebase Firestore stores data in Google's global infrastructure. Google may process this data in the United States or other countries where Google operates data centers. Google's Data Processing Terms apply: [https://cloud.google.com/terms/data-processing-addendum](https://cloud.google.com/terms/data-processing-addendum)
+**Technical and usage data:** To secure the service and enforce free and Pro limits, FeliVitals stores limited operational data. This may include a pseudonymous Firebase user ID, a hashed installation or subscription-owner identifier, scan status, timestamps, and usage counters. It does not include the source report or extracted laboratory values. Short-lived scan reservation records expire after processing and are removed by scheduled cleanup. Usage counters are retained while needed to enforce limits and prevent abuse.
 
----
+**Google Cloud processing:** The Cloud Function runs in `us-central1`, and model processing uses Google's `us` multi-region. Google states that customer data is not used to train or fine-tune its AI models without the customer's permission or instruction. Under Google's standard abuse-monitoring rules, a prompt flagged by automated safety systems may be stored securely for up to 90 days in the selected region or multi-region and reviewed by authorised Google personnel. Such data is not used to train or fine-tune AI models. See [Google Cloud AI data retention](https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention) and [Google Cloud abuse monitoring](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/abuse-monitoring).
 
-### C. Anonymous Analytics (Opt-In Only)
+### C. Cloud Account Data for Signed-In Users
 
-If you choose to enable analytics in **Settings → Analytics**, the App sends anonymous, aggregate usage events to **Firebase Analytics** (Google). This data helps us understand which features are used most, so we can prioritize improvements.
+When you sign in with Apple or Google, the App creates an account and syncs your health records to **Firebase Firestore**. This enables cloud backup, device restore, and household sharing.
 
-**What we send (example events):**
+Firebase Firestore may store:
 
-- `weight_recorded` — a weight entry was saved
-- `fluid_session_added` — a fluid session was logged
-- `dmb_calculator_used` — the DMB calculator was opened
-- `pdf_exported` — a PDF report was generated
+- Your Firebase user ID (UID), a pseudonymous identifier generated by Firebase
+- Email address and display name received from Apple or Google
+- Household membership and roles
+- Health records listed in Section 2A that are included in cloud sync
+- Lab values that you reviewed and saved after an AI scan
 
-**What we never send:**
+Firebase Authentication may store:
 
-- Actual values (weight numbers, fluid volumes, etc.)
-- Cat names, vet notes, medication names, or any free-text content
-- Lab result values
-- Device identifiers beyond what Firebase generates automatically
+- Your sign-in provider
+- Your email address
+- Authentication and refresh-token information needed to maintain or revoke access
 
-Analytics collection is **disabled by default** in compliance with GDPR. You can change this at any time under **Settings → Analytics**.
+**Household sharing:** If you join a shared household, other members can view and add records for cats in that household. The household owner controls membership and can remove members.
 
----
+### D. Anonymous Analytics
 
-### D. Crash Reporting
+If you enable analytics under **Settings → Analytics**, the App sends aggregate usage events to **Firebase Analytics**. Analytics is disabled by default.
 
-The App uses **Firebase Crashlytics** to automatically collect crash reports when the App unexpectedly closes. This helps us fix bugs faster.
+Example events include:
 
-Crash reports may include:
+- A weight entry was saved
+- A fluid session was logged
+- A calculator was opened
+- A PDF report was generated
 
-- The type of error and stack trace (technical code location)
-- Device model and OS version
+Analytics events do not contain cat names, notes, medication names, laboratory values, report files, diagnoses, or other health-record contents.
+
+You can disable analytics at any time in Settings. Events collected before you disable analytics may remain according to Google's retention rules.
+
+### E. Crash Reporting
+
+If you give consent in the App, **Firebase Crashlytics** collects technical crash information, such as:
+
+- Error type and stack trace
+- Device model and operating-system version
 - App version
 
-Crash reports do **not** include your cat's health data, vet notes, or any personal information you have entered.
+Crash reporting is disabled before consent. Reports must not include health records, report files, extracted laboratory values, or free-text notes.
+
+### F. Subscriptions and Payments
+
+Purchases are processed by the **Apple App Store** or **Google Play Store**. FeliVitals uses **RevenueCat** to verify subscription status.
+
+- FeliVitals does not receive or store payment-card details.
+- RevenueCat receives a pseudonymous subscriber identifier, purchase history, and subscription status. For signed-in users, this information may be linked to their account.
+- RevenueCat does not receive health records or lab-report files.
+- On iOS, RevenueCat may also receive standard Apple Ads attribution data, such as campaign, ad-group, and keyword identifiers, to measure App Store advertising. FeliVitals does not use this data to track you across other companies' apps or websites.
+
+See the [RevenueCat Privacy Policy](https://www.revenuecat.com/privacy).
+
+### G. Notifications
+
+If you create reminders, the App uses device notification services to deliver them. Notification data is not used for advertising and is not logged on FeliVitals servers.
+
+### H. Security and App Attestation
+
+FeliVitals uses **Firebase App Check**, Apple App Attest or DeviceCheck, and Google Play Integrity to help confirm that protected requests come from a genuine copy of the App. These services may process technical device, app, and attestation information. FeliVitals uses this information only for security and abuse prevention.
 
 ---
 
-### E. Subscription & Payments (Pro Features)
+## 3. Trusted Service Providers
 
-If you purchase the Pro subscription, the transaction is processed entirely by the **Apple App Store** or **Google Play Store**. We use **RevenueCat** to verify subscription status.
-
-- We **never** see or store your payment card details.
-- RevenueCat receives a pseudonymous subscriber ID, purchase history, and subscription status. For signed-in users, this data may be linked to their account. RevenueCat does not receive your health records.
-- On iOS, RevenueCat also receives Apple Ads attribution data, such as campaign, ad group, and keyword identifiers, to measure the effectiveness of our App Store advertising. RevenueCat may associate this data with the subscriber profile and purchase history. We do not use this data to track you across apps or websites.
-- RevenueCat Privacy Policy: [https://www.revenuecat.com/privacy](https://www.revenuecat.com/privacy)
-
----
-
-### F. Notifications
-
-If you set up reminders (e.g., "Give fluids at 18:00"), the App uses **Expo / Apple Push Notification Service / Firebase Cloud Messaging** solely to deliver those local reminders to your device. No notification data is logged on our servers.
-
----
-
-## 3. Trusted Partners
-
-| Service | Purpose | Privacy Policy |
+| Service | Purpose | Privacy information |
 | :--- | :--- | :--- |
-| **Firebase Firestore** (Google) | Cloud storage for health records — **signed-in users only** | [Google Privacy](https://policies.google.com/privacy) |
-| **Firebase Authentication** (Google) | Account identity (Apple / Google sign-in) | [Google Privacy](https://policies.google.com/privacy) |
-| **Firebase Analytics** (Google) | Anonymous feature usage statistics — **opt-in only** | [Google Privacy](https://policies.google.com/privacy) |
-| **Firebase Crashlytics** (Google) | Automatic crash reports for bug fixing | [Google Privacy](https://policies.google.com/privacy) |
-| **RevenueCat** | Subscription status verification and Apple Ads campaign measurement on iOS | [RevenueCat Privacy](https://www.revenuecat.com/privacy) |
-| **Apple Sign In** | Authentication for iOS users | [Apple Privacy](https://www.apple.com/legal/privacy/) |
-| **Google Sign In** | Authentication for Android users | [Google Privacy](https://policies.google.com/privacy) |
-| **Apple App Store** | App distribution, payment processing (iOS) | [Apple Privacy](https://www.apple.com/legal/privacy/) |
-| **Google Play Store** | App distribution, payment processing (Android) | [Google Privacy](https://policies.google.com/privacy) |
+| **Firebase Firestore** (Google) | Optional cloud storage and OCR usage limits | [Google Privacy](https://policies.google.com/privacy) |
+| **Firebase Authentication** (Google) | Signed-in accounts and pseudonymous authentication for protected services | [Google Privacy](https://policies.google.com/privacy) |
+| **Firebase Cloud Functions** (Google) | Secure server-side processing for features including lab scanning | [Google Cloud Privacy](https://cloud.google.com/privacy) |
+| **Vertex AI** (Google Cloud) | AI-assisted extraction from user-selected lab reports | [Google Cloud AI data retention](https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention) |
+| **Firebase App Check / Apple App Attest / Google Play Integrity** | App attestation, security, and abuse prevention | [Google Privacy](https://policies.google.com/privacy) |
+| **Firebase Analytics** (Google) | Opt-in aggregate usage analytics | [Google Privacy](https://policies.google.com/privacy) |
+| **Firebase Crashlytics** (Google) | Opt-in technical crash reports | [Google Privacy](https://policies.google.com/privacy) |
+| **RevenueCat** | Subscription verification and standard Apple Ads attribution on iOS | [RevenueCat Privacy](https://www.revenuecat.com/privacy) |
+| **Apple Sign In** | Authentication for Apple users | [Apple Privacy](https://www.apple.com/legal/privacy/) |
+| **Google Sign In** | Authentication for Google users | [Google Privacy](https://policies.google.com/privacy) |
+| **Apple App Store** | App distribution and iOS payment processing | [Apple Privacy](https://www.apple.com/legal/privacy/) |
+| **Google Play Store** | App distribution and Android payment processing | [Google Privacy](https://policies.google.com/privacy) |
+
+Google's processing of customer data is also governed by the [Google Cloud Data Processing Addendum](https://cloud.google.com/terms/data-processing-addendum).
 
 ---
 
-## 4. Data Deletion
+## 4. Data Retention and Deletion
 
-You are in full control of your data.
+You can control or delete your data as follows:
 
-1. **Delete a cat profile:** Profile → Edit → Delete Profile. This removes all records associated with that cat (locally and, if signed in, from the cloud).
-2. **Delete your account:** Profile → Account → Delete Account. This immediately and permanently deletes your Firebase account, all cloud health records, and your household. This action cannot be undone.
-3. **Uninstall the App:** Deleting the App from your device removes the local SQLite database. Note: if you are signed in, your cloud data in Firebase Firestore remains until you delete your account. Data backed up to iCloud or Google Drive may also persist in those system backups according to their own retention policies.
-4. **Disable Analytics:** Settings → Analytics → toggle off. Firebase will stop receiving new events immediately.
-5. **Request deletion of analytics data:** Email us at **grygo.wojtek@gmail.com** and we will request deletion of any associated Firebase Analytics data under your device's pseudonymous ID.
+1. **Delete a cat profile:** Use **Profile → Edit → Delete Profile**. This removes records associated with that cat locally and, if signed in, from cloud sync.
+2. **Delete your account:** Use **Profile → Account → Delete Account**. This deletes your Firebase account and cloud health records managed by FeliVitals. Limited records that must be retained for security, subscription verification, fraud prevention, or legal obligations may remain for the required period.
+3. **Delete local data:** Uninstalling the App removes its local database. Copies may remain in iCloud or Android system backups according to Apple or Google's retention rules. If you are signed in, uninstalling alone does not delete cloud data.
+4. **Delete saved OCR results:** AI-extracted values are ordinary lab records after you save them. Delete the relevant lab record or cat profile to remove them.
+5. **Source reports:** FeliVitals does not permanently store source photos or PDFs used for scanning, so there is no FeliVitals copy to delete after processing. Google may retain a report flagged by abuse-monitoring systems for up to 90 days as described in Section 2B.
+6. **OCR usage data:** Pseudonymous quota and security records may remain after a scan to enforce limits and prevent abuse. You may request deletion by email, subject to records that must be retained for fraud prevention or legal obligations.
+7. **Disable analytics and crash reporting:** Change your choice in Settings to stop future collection.
+8. **Request assistance:** Email **grygo.wojtek@gmail.com** to request access, correction, deletion, or an export of data associated with your account.
 
 ---
 
 ## 5. Children's Privacy
 
-FeliVitals is not directed at children under 13 (or under 16 in the European Economic Area). We do not knowingly collect personal information from children. If you believe a child has provided information, please contact us, and we will remove it.
+FeliVitals is not directed at children under 13, or under 16 in the European Economic Area. We do not knowingly collect personal information from children. If you believe a child has provided personal information, contact us so we can review and remove it where required.
 
 ---
 
-## 6. Global Compliance
+## 6. Legal Bases and Privacy Rights
 
-### GDPR (European Union / EEA)
+### European Union and European Economic Area
 
-As a user from the EU/EEA, you have the following rights:
+Depending on the feature, FeliVitals relies on the following legal bases under the GDPR:
 
-- **Right to access** — request a copy of the data we or Firebase hold about you.
-- **Right to erasure** — delete your account in the App (Profile → Account → Delete Account) to immediately remove all cloud data. For analytics data only, email us at grygo.wojtek@gmail.com.
-- **Right to object** — disable analytics at any time in Settings.
-- **Right to portability** — contact us to request an export of your health records.
+- **Local app functions and requested services, including cloud sync and AI lab scanning:** performance of a contract or steps taken at your request (Article 6(1)(b)).
+- **Analytics and crash reporting:** consent (Article 6(1)(a)). You may withdraw consent in Settings.
+- **Security, app attestation, rate limits, and fraud prevention:** legitimate interests in protecting users, the App, and its services (Article 6(1)(f)).
+- **Records required by law:** compliance with a legal obligation (Article 6(1)(c)), where applicable.
 
-**Legal bases for processing:**
+You may have rights to access, correct, delete, restrict, object to processing, and receive a portable copy of your personal data. You may also withdraw consent and lodge a complaint with your local data-protection authority.
 
-- Cloud sync (Firestore): **performance of a contract** — you explicitly signed in to enable backup and sync (Art. 6(1)(b) GDPR).
-- Analytics (opt-in): **explicit consent** (Art. 6(1)(a) GDPR).
-- Crash reporting: **legitimate interest** — App stability and bug fixing (Art. 6(1)(f) GDPR).
+To exercise these rights, email **grygo.wojtek@gmail.com**. We may need to verify your identity before completing a request.
 
-**International transfers:** Firebase Firestore may transfer data to Google's servers outside the EEA. These transfers are covered by Google's Standard Contractual Clauses.
+### International Transfers
 
-### CCPA (California)
+Cloud processing may transfer data outside your country, including to the United States. The OCR Cloud Function runs in `us-central1`, and Vertex AI uses Google's `us` multi-region. Google states that international transfers are protected through its contractual and legal safeguards, including applicable Standard Contractual Clauses. See the [Google Cloud Data Processing Addendum](https://cloud.google.com/terms/data-processing-addendum).
 
-We do not sell or share personal information with third parties for their own advertising or marketing purposes.
+### California
 
----
-
-## 7. Changes to This Policy
-
-If we materially change this Privacy Policy, we will update the Effective Date at the top and notify you via an in-app notice on the next launch. Continued use of the App after the notice constitutes acceptance.
+FeliVitals does not sell personal information or share it with third parties for their own cross-context behavioural advertising. California residents may contact us to request access, correction, or deletion where applicable.
 
 ---
 
-## 8. Contact
+## 7. Security
+
+FeliVitals uses measures including encrypted network connections, Firebase security rules, authentication, app attestation, restricted service accounts, and access controls. No system is completely secure, but we work to reduce unauthorised access, disclosure, alteration, and loss.
+
+---
+
+## 8. Changes to This Policy
+
+If we materially change this Privacy Policy, we will update the Effective Date and version above. Where required, we will also provide an in-app notice or request new consent.
+
+---
+
+## 9. Contact
 
 Questions, requests, or concerns about privacy:
 
